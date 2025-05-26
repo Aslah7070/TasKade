@@ -4,16 +4,16 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
-import { env } from "./src/configs/env.configs";
-import { connectDb } from "./src/configs/mongo.config";
-import { router } from "./src/routes/auth.route"
-import {adminRoute} from "./src/routes/admin.route"
-import { workspace } from "./src/routes/work.route";
-import {space} from "./src/routes/space.route"
-import {task} from "./src/routes/task.route"
-import {list} from "./src/routes/list.routes"
-import { connectRedis } from "./src/configs/redis.config";
-import addStandardResponse from "./src/middlwares/standerdResponse.middleware,"
+import { env } from "./configs/env.configs";
+import { connectDb } from "./configs/mongo.config";
+import { router } from "./routes/auth.route"
+import {adminRoute} from "./routes/admin.route"
+import { workspace } from "./routes/work.route";
+import {space} from "./routes/space.route"
+import {task} from "./routes/task.route"
+import {list} from "./routes/list.routes"
+import { connectRedis } from "./configs/redis.config";
+import addStandardResponse from "./middlwares/standerdResponse.middleware,"
 const app = express();
 app.use(
   cors({
