@@ -28,8 +28,9 @@ export default function StatusSelector({
 
 
     const handleCreateList = useCallback(async () => {
-     
-          const lists = await createColumn(workspaceId);
+        const options={name:"",color:{bg:"",text:""}}
+        const lists = await createColumn(workspaceId,options);
+          
           if (lists?.success) {
              
               

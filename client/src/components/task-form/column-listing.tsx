@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSpaceStore } from '@/lib/store/useSpaceStore';
 import { Column, Task } from '@/types/type';
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import { Button } from '../ui/buttons';
 import { CreateTask } from './create-task';
@@ -42,8 +43,8 @@ const ColumnsListing = ({ title, workspaceId,index,tasks }: ColumnProps) => {
     const [visibleColorPickerId, setVisibleColorPickerId] = useState<string | null>(null);
     const [deletingColumnId, setDeletingColumnId] = useState<string | null>(null);
     const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
-    const { findSpaceColumns, deleteSpace, editColumn } = useSpaceStore();
-    
+    const { findSpaceColumns, deleteSpace, editColumn,getColumnById } = useSpaceStore();
+    const [status,setStatus]=useState<string | null>()
     const handleDelete = useCallback(async (spaceId: string) => {
         setDeletingColumnId(spaceId);
         const result = await deleteSpace(spaceId);
@@ -75,18 +76,34 @@ const ColumnsListing = ({ title, workspaceId,index,tasks }: ColumnProps) => {
         }
         setVisibleColorPickerId(null);
     };
+    console.log("status._id",status);
+    
+useEffect(() => {
+ 
+  if (!title._id) return;
+
+const findSpace = async () => {
+  const result = await getColumnById(title._id);
+ console.log("hey",result);
+  if (result) {
+    
+    setStatus(result.space[0].name); // Use `?? null` in case name is undefined
+  } else {
+    setStatus(null); // Handle null result
+  }
+};
+
+  findSpace();
+}, [title._id]);
 
     
     return (
        
-            <div
-           
-             className='flex overflow-x-auto flex-nowrap scrollbar-hide scrollbar-thin scrollbar-thumb-gray-400 auto-scroll gap-2'>
-
+     
                 <div
                  ref={setNodeRef}
                     key={title?._id}
-                    className={` relative bg-[#7d7a7a76] border-2  ${title.color?.text ?? 'border-gray-500'} p-4 rounded-md shadow-md min-w-[16rem] min-h-[450px] relative
+                    className={` relative bg-[#7d7a7a76]  border-2 overflow-visible  ${title.color?.text ?? 'border-gray-500'} p-4 rounded-md shadow-md min-w-[16rem] min-h-[450px] relative
                                       ${deletingColumnId === title._id ? "animate__animated animate__fadeOutDown" : ""}
                                   `}
                 >
@@ -102,16 +119,16 @@ const ColumnsListing = ({ title, workspaceId,index,tasks }: ColumnProps) => {
                     ) : (
                         <Button
                             onClick={() => handleEditColumn(index)}
-                            className="text-white bg-violet-900 rounded-sm font-semibold mb-2 font-tagesschrift"
+                            className="text-white bg-violet-900 rounded-sm  font-semibold mb-2 font-tagesschrift"
                         >
                             <div className="overflow-x-auto scrollbar-hide whitespace-nowrap max-w-[200px]">
                                 {title.name}
                             </div>
                         </Button>
                     )}
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between  items-center'>
                         <Button
-                            onClick={() => setAnimationKey((prev) => prev + 1)}
+                            onClick={() =>  setAnimationKey((prev) => prev + 1)}
                             className="rounded-sm text-sm border h-7 space-x-0" variant="destructive" >
                             add <CreateTask animationKey={animationKey} toggleIcom={<AddIcon />} workspaceId={workspaceId} id={title._id} />
                         </Button>
@@ -152,19 +169,21 @@ const ColumnsListing = ({ title, workspaceId,index,tasks }: ColumnProps) => {
                             />
                         </div>
                     </div >
-                      {
+                     <div className='z-50'>
+                         {
                         tasks.map((task)=>(
                           <TaskList 
                           key={task._id}
                           task={task} spaceId={title._id} /> 
                         ))
                       }
+                     </div>
                     
 
                     <p className="text-gray-500">No tasks</p>
                 </div>
 
-            </div>
+           
    
     )
 }

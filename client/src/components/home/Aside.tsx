@@ -5,11 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Button } from "../ui/buttons"
-// import { DropdownMenu, DropdownMenuContent } from "@/components/ui/dropdown";
-// import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
-// import { Spinner } from "../../ui/spinner"
-// import { SidebarTrigger } from "../ui/sidebar";
 import HomeIcon from '@mui/icons-material/Home';
 import BorderBottomIcon from '@mui/icons-material/BorderBottom';
 import { DialogDemo } from "../user/common/Dialog";
@@ -32,20 +28,7 @@ const Aside: React.FC<AsidProps> = ({ state }) => {
     findWorkSpaces()
   }, [])
 
-  // const handleLogout = async () => {
-  //   start()
 
-  //   const logout = await logoutUser()
-  //   if (logout?.success) {
-
-  //     router.push("/")
-  //     complete()
-
-
-  //   } else {
-  //     complete()
-  //   }
-  // }
 
 
 
@@ -60,7 +43,7 @@ const Aside: React.FC<AsidProps> = ({ state }) => {
 
 
   return (
-    <aside className={`w-60 text-black  ${isExpanded ? "p-4" : "p-0"} flex flex-col justify-start`}>
+    <aside className={` text-black  ${isExpanded ? "p-4" : "p-0"} flex flex-col justify-start`}>
 
       <div >
 
@@ -76,14 +59,14 @@ const Aside: React.FC<AsidProps> = ({ state }) => {
 
           <div className="my-4 border-t border-[#7d7a7a76] w-full"></div>
 
-          <div className="flex items-center justify-between    w-full">
+          <div className={`${isExpanded&&"flex"} flex items-center justify-between  w-full`}>
             {isExpanded && <span className="text-xs dark:text-white cursor-pointer" onClick={()=>setAnimationKey((prev)=>prev+1)}>WORK SPACE</span>}
             <DialogDemo animationKey={animationKey} toggleIcom={<AddIcon /> }id=""  />
 
 
           </div>
           <div className="w-full">
-           <SpaceLists/>
+          {isExpanded&& <SpaceLists/>}
           </div>
           <div className="my-4 border-t border-[#7d7a7a76] w-full"></div>
 

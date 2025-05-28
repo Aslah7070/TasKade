@@ -9,27 +9,30 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar"
-
+// import { useIsMobile } from "../../../hooks/use-mobile"
 import Aside from "@/components/home/Aside"
+import React from "react"
 export function AppSidebar() {
+        // const isMobile = useIsMobile()
     const {
         state,
         // open,
-        // setOpen,
+        // setOpen,  
         // openMobile,
         // setOpenMobile,
         // isMobile,
         // toggleSidebar,
       } = useSidebar()
-  
-      
+
+
   return (
-    <Sidebar  collapsible="icon" variant="floating"  className=" dark:bg-[#121212]  ">
-       <SidebarTrigger className='bg-[#7d7a7a76] border border-white'/>
+    <Sidebar  collapsible="icon" variant="floating"    className={`dark:bg-[#121212] h-full`}>
+       <SidebarTrigger />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarInset>
+       
             <Aside state={state} />
             </SidebarInset>
         

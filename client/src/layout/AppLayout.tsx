@@ -7,6 +7,8 @@ const AppLayout = async({ children }: { children: React.ReactNode }) => {
     const cookieStore = await cookies()
     const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
 
+    
+
    return <AppLayoutClient defaultOpen={defaultOpen}>{children}</AppLayoutClient>
 }
 

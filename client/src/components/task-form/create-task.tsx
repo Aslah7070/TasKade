@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useState } from "react"
+import React, { memo, useCallback, useEffect, useState } from "react"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { Button } from "../ui/buttons"
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -16,6 +17,7 @@ import { TaskFormValues } from "@/types/type";
 import StatusSelector from "./status-selector";
 import { taskSchema } from "@/lib/schema/Task.schema";
 import { Spinner } from "@/ui/spinner";
+import { useSpaceStore } from "@/lib/store/useSpaceStore";
 type DialogProps={
     animationKey?: number;
     toggleIcom:React.ReactNode;
@@ -42,17 +44,25 @@ const options = [
 
 
 
-export const CreateTask=({ animationKey=0,toggleIcom,id,workspaceId }:DialogProps)=>{
+ const CreateTaskComponent=({ animationKey=0,toggleIcom,id,workspaceId }:DialogProps)=>{
   const spaceId=id
+
+  
    const [open, setOpen] = useState(false);
   const [opens,selectOpen]=useState(false)
+ 
   const {createTasks,taskLoading}=useTaskeStore()
   const [selectedPriority, setSelectedPriority] = useState("medium");
-const [status,setStatus]=useState("")
+
+console.log("id",id);
+
+
 const [dueDate,setDueDate]=useState(new Date())
 
+
+
   const handleSelect=useCallback((value:string)=>{
-setStatus(value)
+
 selectOpen(false)
 
 },[])
@@ -216,3 +226,5 @@ return (
     </Dialog>
 )
 }
+
+export const CreateTask = memo  (CreateTaskComponent);

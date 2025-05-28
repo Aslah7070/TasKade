@@ -11,7 +11,7 @@ import { useTaskeStore } from '@/lib/store/useTaskStore';
 import {
 
  DndContext,
-
+closestCorners,
   DragEndEvent,
 
   DragOverlay,
@@ -32,9 +32,6 @@ const BasicSpace = ({ workspaceId }: PropsBasic) => {
     const {createList,tasks,getAllTask,swapTasks}=useTaskeStore()
 
  const [activeTask, setActiveTask] = useState<Task | null>(null);
-//  const columnsIds = useMemo(() => column.map((column) => column._id), [column]);
-
-
 
     useEffect(() => {
         findColumn();
@@ -45,12 +42,9 @@ const BasicSpace = ({ workspaceId }: PropsBasic) => {
         await findSpaceColumns(workspaceId);
     };
 
-
-   
-
-
     const handleCreateSpace = useCallback(async () => {
-        const space = await createColumn(workspaceId);
+        const options={name:"",color:{bg:"",text:""}}
+        const space = await createColumn(workspaceId,options);
      
         
         if (space?.success) {
@@ -76,7 +70,7 @@ const BasicSpace = ({ workspaceId }: PropsBasic) => {
 
 
     const handleDragEnd =async (event:DragEndEvent) => {
-        console.log("event",event);
+     
         const { active, over } = event;
         if (!over) return;
 
@@ -101,6 +95,7 @@ const BasicSpace = ({ workspaceId }: PropsBasic) => {
                 </Button>
             </div>
          <DndContext
+          collisionDetection={closestCorners}
            onDragStart={(event) => {
         const task = event.active.data.current as Task;
   
@@ -112,11 +107,12 @@ const BasicSpace = ({ workspaceId }: PropsBasic) => {
 
     
             <div className='w-[1200px]'>
-                <div className="flex overflow-x-auto flex-nowrap scrollbar-hide scrollbar-thin scrollbar-thumb-gray-400 auto-scroll gap-2">
+                <div className="flex overflow-x-auto flex-nowrap z-0 scrollbar-hide  scrollbar-thin scrollbar-thumb-gray-400 auto-scroll gap-2">
                    
                    {
                     column&&column.map((title,index)=>(
                        <ColumnsListing 
+                      
                        key={title._id}
                        tasks={tasks.filter((data)=>data.spaceId==title._id)}
                        title={title} workspaceId={workspaceId} index={index} />

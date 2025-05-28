@@ -10,7 +10,8 @@ interface TaskListProps {
 
 export const TaskList: React.FC<TaskListProps> = ({ task }) => {
   const { attributes, listeners, transform, setNodeRef } = useDraggable({
-    id: task._id,
+    id: task?._id,
+     data: { ...task },
   });
 
   const style:React.CSSProperties  = {
@@ -28,15 +29,15 @@ export const TaskList: React.FC<TaskListProps> = ({ task }) => {
       {...listeners}
       ref={setNodeRef}
       style={style}
-      className="bg-black rounded p-2 my-2 shadow text-white"
+      className="bg-black rounded p-2 z-30 my-2 shadow text-white"
     >
-      <h3 className="font-semibold">{task.name}</h3>
-      <p>Priority: {task.priority}</p>
-      <p>Status: {task.status}</p>
-      <p>Description: {task.description || 'No description'}</p>
+      <h3 className="font-semibold">{task?.name}</h3>
+      <p>Priority: {task?.priority}</p>
+      <p>Status: {task?.status}</p>
+      <p>Description: {task?.description || 'No description'}</p>
       <p>
         Due Date:{' '}
-        {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No due date'}
+        {task?.dueDate ? new Date(task?.dueDate).toLocaleDateString() : 'No due date'}
       </p>
     </div>
   );

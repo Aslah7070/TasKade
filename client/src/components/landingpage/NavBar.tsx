@@ -90,9 +90,9 @@ const {start,complete}=useLoadingBar()
         <ul className="hidden md:flex gap-6  font-medium">
           <li><Link className='hover:text-violet-700 ' href="/">Home</Link></li>
           <li><Link className='hover:text-violet-700 ' href="/tracker">Tracker</Link></li>
-          <li><Link className='hover:text-violet-700 ' href="/community">Community</Link></li>
+          {!user?<li><Link className='hover:text-violet-700 ' href="/login">Community</Link></li>:<li><Link className='hover:text-violet-700 ' href="/community">Community</Link></li>}
           <li><Link className='hover:text-violet-700 ' href="/about">About</Link></li>
-          {user&&  <li><Link className='hover:text-violet-700 ' href=""> <ModeToggle/></Link></li>}
+          {user&&  <li><Link className='hover:text-violet-700 ' href=""> <ModeToggle  /></Link></li>}
         
                   
         </ul>

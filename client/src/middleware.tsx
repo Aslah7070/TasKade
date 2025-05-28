@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     const pathName = url.pathname;
 
-      const isAuthPage = pathName === "/login" || pathName === "/register";
+      const isAuthPage = pathName === "/login" || pathName === "/register"||pathName==="/";
         if (token && isAuthPage) {
     if (userType === "Admin") {
       url.pathname = "/admin/home";

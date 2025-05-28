@@ -16,6 +16,7 @@ interface TaskState {
   createList: (spaceId:string,listData:Pick<Column ,"name">) => Promise<WorkSpaceResponse|null>;
     swapTasks: ( activeId: UniqueIdentifier, overId: UniqueIdentifier ) => Promise<WorkSpaceResponse|null>;
   moveTaskToColumn: ( activeId: UniqueIdentifier ,overId: UniqueIdentifier ) => void;
+  searchTasks: (value:string) => void;
 }
 
 export const useTaskeStore = create<TaskState>((set,get) => ({
@@ -73,6 +74,7 @@ export const useTaskeStore = create<TaskState>((set,get) => ({
       return null
 
   }),
+
   createList:async(spaceId:string,listData:Pick<Column,"name">)=>{
      set({ taskLoading: true, error: null });
     const lists=await handleAsync(async()=>{
@@ -111,6 +113,19 @@ export const useTaskeStore = create<TaskState>((set,get) => ({
       task._id === activeId ? { ...task, columnId: overId } : task
     );
     set({ tasks: updatedTasks });
+  },
+
+
+  
+  searchTasks:async(name:string)=>{
+    const result=await handleAsync(async()=>{
+      const response=await axiosInstance.get(`/task/searching?name=${name}`)
+      return response.data
+    })
+    if(result){
+      console.log("result",result);
+      
+    }
   }
 
 

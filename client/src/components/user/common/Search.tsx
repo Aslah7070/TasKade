@@ -4,14 +4,30 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Input } from "@/components/ui/input"
-import { JSX, SVGProps } from "react"
+import { useTaskeStore } from "@/lib/store/useTaskStore"
+import { JSX, SetStateAction, SVGProps, useState } from "react"
 
 export default function Component() {
+  const [query,setQuery]=useState("")
+  const {searchTasks}=useTaskeStore()
+  const handleSearch=async(e: { target: { value: SetStateAction<string> } })=>{
+    setQuery(e.target.value)
+     
+  }
+  const handleSearchSubmit=async()=>{
+ await searchTasks(query)
+  }
   return (
     <div className="flex items-center w-full max-w-sm space-x-2 rounded-lg border border-gray-300 bg-gray-50 dark:bg-gray-900 px-3.5 py-2">
-      <SearchIcon className="h-4 w-4" />
-      <Input type="search" placeholder="Search" className="w-full border-0 h-8 font-semibold" />
-    </div>
+      <SearchIcon 
+      onClick={handleSearchSubmit}
+       className="h-4 w-4" />
+      <Input 
+      value={query}
+      onChange={handleSearch}
+       
+      type="search" placeholder="Search tasks" className="w-full border-0 h-8 font-semibold" />
+    </div>  
   )
 }
 

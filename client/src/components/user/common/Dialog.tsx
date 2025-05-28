@@ -68,7 +68,7 @@ const [open, setOpen] = useState(false);
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button key={animationKey} className="text-white cursor-pointer animate__animated animate__headShake">{toggleIcom}</Button>
+                <Button key={animationKey} className="text-white me-5   cursor-pointer animate__animated animate__headShake">{toggleIcom}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] bg-black">
                 <DialogHeader>

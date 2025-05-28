@@ -72,13 +72,16 @@ export type TaskFormValues = {
   pendingMembers: string[];
   spaces: string[];
   visibility: 'private' | 'public';
+ 
   }
     export interface WorkSpaceResponse{
+    name: string;
     workspace:WorkSpace
     success:boolean
     activeWorkspaces:WorkSpace[]
     pendingWorkspaces:string[]
     newSpace:WorkSpace
+    space:Pick<TaskFormValues,"name">[];
 
   }
 
