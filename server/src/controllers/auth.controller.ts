@@ -116,7 +116,7 @@ export const verifyOtpAndLogin=async(req:Request,res:Response)=>{
     httpOnly: true,
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    // sameSite: "strict",
+    sameSite: "none",
   });
   res.cookie(`type`, "User", {
     httpOnly: true,
@@ -128,7 +128,7 @@ export const verifyOtpAndLogin=async(req:Request,res:Response)=>{
     httpOnly: true,
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: "strict",
+    sameSite: "none",
   });
   res.status(HttpStatus.OK).json({
     success: true,
