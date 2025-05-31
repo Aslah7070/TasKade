@@ -29,3 +29,27 @@ const addStandardResponse = (
 };
 
 export default addStandardResponse;
+
+
+
+// import { Response } from "express";
+
+// export function standardResponse(
+//   res: Response,
+//   statusCode: number,
+//   data: {
+//     success: boolean;
+//     message: string;
+//     [key: string]: any;
+//   }
+// ) {
+//   const { message, ...rest } = data;
+
+//   res.status(statusCode).json({
+//     status:
+//       statusCode < 400 ? "success" : statusCode >= 500 ? "error" : "fail",
+//     statusCode,
+//     message,
+//     data: rest,
+//   });
+// }

@@ -13,7 +13,8 @@ import {space} from "./routes/space.route"
 import {task} from "./routes/task.route"
 import {list} from "./routes/list.routes"
 import { connectRedis } from "./configs/redis.config";
-import addStandardResponse from "./middlwares/standerdResponse.middleware,"
+import addStandardResponse from "./middlwares/standerdResponse.middleware";
+
 const app = express();
 app.use(
   cors({
@@ -24,12 +25,12 @@ app.use(
   })
 );
 
-
 app.use(cookieParser()); 
 app.use(express.json());
-app.use(addStandardResponse)
+
 app.use(express.urlencoded({ extended: true }));
 
+app.use(addStandardResponse)
 
 app.use("/api/auth",router)
 app.use("/api/admin",adminRoute)
@@ -38,7 +39,7 @@ app.use("/api/space",space)
 app.use("/api/task",task)
 app.use("/api/list",list)
 connectDb();
-connectRedis();
+connectRedis();      
 
 
 app.listen(env.PORT, () => console.log(`Server started at ${env.PORT} `));

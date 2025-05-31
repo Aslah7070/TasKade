@@ -5,9 +5,10 @@ import { Space } from "../models/space.model";
 import mongoose from "mongoose";
 
 export const createSpace = async (req: Request, res: Response) => {
-	const name = "new space"
+	
 	const description = "new space created"
-	const { workspaceId } = req.query;
+	const { workspaceId} = req.query;
+	const {color,name}=req.body
 
 
 	if (!workspaceId) {
@@ -22,10 +23,10 @@ export const createSpace = async (req: Request, res: Response) => {
 	const spaceCount = await Space.countDocuments({ workspaceId });
 
 	const newSpace = new Space({
-		name,
+		name:name||"new space",
 		color: {
-			bg: "",
-			text: ""
+			bg:color.bg||"",
+			text:color.text||""
 		},
 		description,
 		workspaceId,
@@ -34,7 +35,7 @@ export const createSpace = async (req: Request, res: Response) => {
 	});
 
 
-	//reduce the load time with promise.all here
+	
 	await Promise.all([newSpace.save(), workspace.updateOne({ $push: { spaces: newSpace._id } })]);
 
 	res.standardResponse(HttpStatus.CREATED, { success: true, message: "workspace created", newSpace })
@@ -126,7 +127,7 @@ export const getAllSpaces = async (req: Request, res: Response) => {
 export const getSpaceById = async (req: Request, res: Response) => {
 	const { id } = req.params;
 
-	const space = await Space.aggregate([
+	const spaces = await Space.aggregate([
 		{ $match: { _id: new mongoose.Types.ObjectId(id) } }, 
 		{
 			$lookup: {
@@ -173,14 +174,14 @@ export const getSpaceById = async (req: Request, res: Response) => {
 
 	
 
-	if (!space.length) {
+	if (!spaces.length) {
 		res.standardResponse(HttpStatus.NOT_FOUND,{success:false,message:"space not found"})
 		return
 	}
 
-	console.log("space",space);
+	console.log("space",spaces);
 	
-res.standardResponse(HttpStatus.OK,{success:true,message:"Space fetched successfully",space})
+res.standardResponse(HttpStatus.OK,{success:true,message:"Space fetched successfully",spaces})
 		return
 	
 };

@@ -13,11 +13,12 @@ export const AppLayoutClient = ({
   defaultOpen: boolean
 }) => {
   const pathname = usePathname()
-const hideSidebarPaths = ["/", "/login", "/signup","/reset-password"]
-const showSidebar = !hideSidebarPaths.includes(pathname)
+// const hideSidebarPaths = ["/", "/login", "/signup","/reset-password"]
+// const showSidebar = !hideSidebarPaths.includes(pathname)
+ const showSidebar = pathname.startsWith('/user')
 if(!showSidebar)return <>{children}</>
 
-  return (
+  return (  
     <SidebarProvider defaultOpen={defaultOpen}>
        
       <AppSidebar />

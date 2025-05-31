@@ -1,8 +1,9 @@
+import { env } from "@/configs/env";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000/api", 
+    baseURL:env.BACKEND_URI, 
     withCredentials: true
 });
 

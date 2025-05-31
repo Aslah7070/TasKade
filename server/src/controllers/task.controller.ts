@@ -40,21 +40,7 @@ export const getTaskById = async (req: Request, res: Response) => {
           return
  
 };
-// export const getAllTask = async (req: Request, res: Response) => {
-//   const { spaceId } = req.params;
 
-//   const tasks = await Task.find({spaceId:spaceId});
-
-//   if (!tasks) {
-//          res.standardResponse(HttpStatus.NOT_FOUND,{success:true,message:"Task not found"})
-//           return
-
-//   }
-
-//       res.standardResponse(HttpStatus.OK,{success:true,message:"all task retrieved succesfully",tasks})
-//           return
- 
-// };
 
 
 export const getAllTask = async (req: Request, res: Response) => {
@@ -74,21 +60,21 @@ export const getAllTask = async (req: Request, res: Response) => {
     console.log("spaceIds",spaceIds);
     
 
-    // Fetch tasks for each space using Promise.all
+
     const tasksArray = await Promise.all(
       spaceIds.map((spaceId) => Task.find({ spaceId }))
     );
 
-    // Flatten the array of task arrays into a single array
+
     const allTasks = tasksArray.flat();
 
-    if (allTasks.length === 0) {
-      return res.standardResponse(HttpStatus.NOT_FOUND, {
-        success: false,
-        message: "No tasks found for this workspace",
-      });
-    }
- console.log("allTasks",allTasks);
+//     if (allTasks.length === 0) {
+//       return res.standardResponse(HttpStatus.NOT_FOUND, {
+//         success: false,
+//         message: "No tasks found for this workspace",
+//       });
+//     }
+//  console.log("allTasks",allTasks);
     return res.standardResponse(HttpStatus.OK, {
       success: true,
       message: "All tasks retrieved successfully",
@@ -145,9 +131,7 @@ export const deleteTask = async (req: Request, res: Response) => {
 
 export const moveTask = async (req: Request, res: Response) => {
   const { taskId,spaceId } = req.params;
-  // const { targetSpaceId } = req.body;
-  console.log("taskId",taskId);
-  console.log("spaceId",spaceId);
+
   
 if(!taskId||!spaceId){
   res.standardResponse(HttpStatus.NOT_FOUND,{success:false,message:"id not found"})
@@ -167,3 +151,24 @@ if(!taskId||!spaceId){
           return
 
 };
+
+
+export const searchTaskByName = async (req: Request, res: Response) => {
+  console.log("req.query",req.query);
+  const { name } = req.query;
+console.log("ma",name);
+
+  if (!name || typeof name !== "string") {
+    res.standardResponse(HttpStatus.BAD_REQUEST, { success: false, message: "Task name is required" });
+    return;
+  }
+
+
+    // Case-insensitive search (Regex)
+    const tasks = await Task.find({
+      name: { $regex: name, $options: "i" }
+    });
+
+ 
+    res.standardResponse(HttpStatus.OK, { success: true, message:"find Task", tasks });
+  }   

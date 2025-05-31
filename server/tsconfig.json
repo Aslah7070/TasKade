@@ -115,11 +115,29 @@
 
 
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "target": "ES6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
-  "include": ["src/**/*", "global.d.ts"],
+   "files": ["global.d.ts"],
+"include": ["src/**/*", "global.d.ts", "src/server.ts"],
   "exclude": ["node_modules", "dist"]
 }
+
+
+// {
+//   "extends": "@tsconfig/node20/tsconfig.json",
+//   "compilerOptions": {
+//     "rootDir": "src",
+//     "outDir": "build"
+//   },
+//   "files": ["global.d.ts"],
+//   "include": ["src/**/*", "global.d.ts"],
+//   "exclude": ["node_modules", "build"]
+// }

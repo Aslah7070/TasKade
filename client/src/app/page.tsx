@@ -1,5 +1,7 @@
-// import Signup from "@/components/auth/Signup";
+
+import Footer from "@/components/landingpage/Footer";
 import MainLanding from "@/components/landingpage/MainLanding";
+
 
 
 
@@ -10,7 +12,7 @@ export default function Home() {
    <>
 
    <MainLanding/>
-   {/* <Footer/> */}
+  <Footer/>
   
    </>
   );

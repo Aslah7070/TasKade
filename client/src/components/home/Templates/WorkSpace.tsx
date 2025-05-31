@@ -13,7 +13,7 @@ import { WorkSpace } from "@/types/type";
 export default function WorkspaceCard({ workSpace }: { workSpace: WorkSpace }) {
   return (
     <Link
-      href={`/w/${workSpace._id}/dashboard`}
+      href={`/user/w/space/${workSpace._id}`}
       className="shrink-0 basis-[120px] sm:basis-[200px] md:basis-[250px] mr-4 mb-4">
       <Card
         className="w-[160px] sm:w-[200px] md:w-[250px]  h-full min-h-40 shadow-lg hover:shadow-xl
