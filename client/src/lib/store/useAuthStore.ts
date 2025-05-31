@@ -93,6 +93,7 @@ if(result){
       
   const { user, token, refreshtoken } = result;
 
+  console.log("user/",user);
   
 
   localStorage.setItem("user", JSON.stringify(user))

@@ -112,30 +112,31 @@ export const verifyOtpAndLogin=async(req:Request,res:Response)=>{
     return
    }
 
-   res.cookie("token", token, {
-    httpOnly: true,
-    secure: false,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: "strict",
-  });
+  //  res.cookie("token", token, {
+  //   httpOnly: true,
+  //   secure: false,
+  //   maxAge: 7 * 24 * 60 * 60 * 1000,
+  //   sameSite: "strict",
+  // });
   res.cookie(`type`, "User", {
     httpOnly: true,
     secure: true,
     maxAge: 7 * 24 * 60 * 60 * 1000, 
     sameSite: 'none',
   });
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: false,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: "strict",
-  });
+  // res.cookie("refreshToken", refreshToken, {
+  //   httpOnly: true,
+  //   secure: false,
+  //   maxAge: 7 * 24 * 60 * 60 * 1000,
+  //   sameSite: "strict",
+  // });
   res.status(HttpStatus.OK).json({
     success: true,
     message: "OTP verified successfully, login complete",
     token: token,
     refreshToken:refreshToken,
-    user:user
+    user:user,
+    type:"User"
 });
 }
 
