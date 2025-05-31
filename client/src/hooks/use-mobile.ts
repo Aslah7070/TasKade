@@ -20,23 +20,3 @@ export function useIsMobile() {
 
 
 
-// import * as React from "react";
-
-// export function useIsMobile() {
-//   const [isMobile, setIsMobile] = React.useState(false);
-
-//   React.useEffect(() => {
-//     const handleResize = () => {
-//       setIsMobile(window.innerWidth < 668);
-//       // setIsMobile(window.innerWidth < 0);
-//     };
-
-//     handleResize();
-//     window.addEventListener("resize", handleResize);
-
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
-
-//   return isMobile;
-// }
-
