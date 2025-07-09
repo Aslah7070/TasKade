@@ -2,6 +2,10 @@ import { IWorkspace } from "../types/type";
 import { CustomError } from "./customError.utils";
 
 export const hasAccess = async (workspace: IWorkspace, userId: string, role: "owner" | "user" = "user") => {
+	console.log("role ===  && workspace.createdBy.toString() !== userId",role === "owner" && workspace.createdBy.toString() !== userId);
+	console.log(workspace.createdBy.toString());
+	console.log(userId);
+	console.log(role);
 	
 
 	if (role === "owner" && workspace.createdBy.toString() !== userId) {

@@ -14,6 +14,7 @@ import { generateNanoId } from "../utils/generate-nanoId.util"
 import { OAuth2Client } from "google-auth-library";
 import admin from "../configs/firebase.config"
 import { Types } from "mongoose"
+import { hash } from "crypto"
 
 
 export const signup=async(req:Request,res:Response):Promise<void>=>{
@@ -219,6 +220,7 @@ export const forgotPassword = async (req:Request, res:Response) => {
 
 
 export const getResetPassword=async(req:Request,res:Response)=>{
+console.log("su",req.body);
 
   const { token, newPassword } = req.body;
 
@@ -232,23 +234,25 @@ export const getResetPassword=async(req:Request,res:Response)=>{
     return 
    }
   
-   
+   console.log("newPassword",newPassword)
    const hashedPassword = await hashPassword(newPassword);
 
      const user=await User.findOne({email:getEmail})
      if(!user){
       res.status(HttpStatus.NOT_FOUND).json({success:HttpResponse.USER_NOT_FOUND})
       return
-     }
+     }   
+     console.log("dddd",hashedPassword)
+     console.log("user",user)
+
+     
      user.password=hashedPassword;
-
-
+     await user.save()
+ 
    await redisClient.del(token);
 
-   return {
-       status: HttpStatus.OK,
-       message: HttpResponse.PASSWORD_CHANGE_SUCCESS,
-   };
+   res.status(HttpStatus.OK).json({success:true,message:HttpResponse.PASSWORD_CHANGE_SUCCESS})
+   return 
 }
 
 
@@ -373,6 +377,8 @@ export const googleAuth = async (req: Request, res: Response) => {
     res.status(401).json({ success: false, message: "Invalid Firebase token" });
   }
 };
+
+
 
 
 

@@ -17,8 +17,7 @@ export function middleware(req: NextRequest) {
       url.pathname = "/user/home";
     }
     return NextResponse.redirect(url);
-  }
-
+        }
 
     
       if (!token && (isUserProtectedRoute(pathName) || isAdminRoute(pathName))) {

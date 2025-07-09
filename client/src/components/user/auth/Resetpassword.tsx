@@ -5,14 +5,22 @@ import { useFormik } from 'formik';
 
 import { Eye, EyeOff, Check } from 'lucide-react';
 import { forgotPasswordSchema } from '@/lib/schema/auth.schema';
+import {  useRouter, useSearchParams } from 'next/navigation';
+
+import { useAuthStore } from '@/lib/store/useAuthStore';
+
 
 const ResetPasswordInput = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const searchParams=useSearchParams
+ const token= searchParams().get("token")
+const {resetpassword}=useAuthStore()
+  
 
-  // Formik validation schema
+const router=useRouter()
   const validationSchema = forgotPasswordSchema;
 
   // Formik setup
@@ -26,11 +34,16 @@ const ResetPasswordInput = () => {
       setLoading(true);
       setError('');
       
-  
+ 
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
-        console.log('Password reset:', values);
-        // Add your password reset logic here
+        
+      const result= await resetpassword(values.newPassword,token)
+      if(result?.success){
+            router.push("/login")
+      }
+
+        // axiosInstance.post("/auth/resetpassword",)
         setLoading(false);
 
     }

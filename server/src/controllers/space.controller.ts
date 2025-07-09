@@ -189,7 +189,6 @@ res.standardResponse(HttpStatus.OK,{success:true,message:"Space fetched successf
 
 export const deleteSpaceById = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	console.log("id", id);
 
 	const deletedSpace = await Space.findByIdAndDelete(id);
 	if (!deletedSpace) {
@@ -201,6 +200,29 @@ export const deleteSpaceById = async (req: Request, res: Response) => {
 
 	res.standardResponse(HttpStatus.OK, { success: true, message: "Space deleted successfully" })
 	return
+};
+
+export const deleteWorkSpaceById = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+
+		const workspace = await Workspace.findById(id);
+		if (!workspace) {
+			return res.standardResponse(HttpStatus.NOT_FOUND, {
+				success: false,
+				message: "Workspace not found"
+			});
+		}
+
+		await Space.deleteMany({ workspaceId: id });
+
+		
+		await Workspace.findByIdAndDelete(id);
+
+		return res.standardResponse(HttpStatus.OK, {
+			success: true,
+			message: "Workspace and all related spaces deleted successfully"
+		});
 };
 
 export const updateSpace = async (req: Request, res: Response) => {

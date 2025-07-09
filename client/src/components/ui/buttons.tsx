@@ -42,7 +42,7 @@ const buttonVariants = cva(
       rounded: "default",
       
     },
-  }
+  } 
 );
 
 export interface ButtonProps

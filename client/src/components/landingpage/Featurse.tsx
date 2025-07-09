@@ -11,7 +11,7 @@ const Featurse = () => {
       <div className="w-full flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
         <div className="w-full max-w-md md:max-w-1/2 p-20">
         <TrueFocus 
-sentence="True Focus"
+sentence="Tas Kade"
 manualMode={false}
 blurAmount={5}
 borderColor="red"

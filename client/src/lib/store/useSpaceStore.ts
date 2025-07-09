@@ -16,9 +16,11 @@ interface SpaceState {
     findSpaceColumns:(value:string)=>Promise<WorkSpaceResponse|null>
     editColumn:(spaceId: string, color: colors)=>Promise<WorkSpaceResponse|null>
     deleteSpace:(value:string)=>Promise<WorkSpaceResponse|null>
+    deleteWorkSpace:(value:string)=>Promise<WorkSpaceResponse|null>
     findWorkSpaces:()=>Promise<WorkSpaceResponse|null>
     findWorkSpacesById:(value:string)=>Promise<WorkSpaceResponse|null>
     getColumnById:(value:string|null)=>Promise<WorkSpaceResponse|null>
+    sendInviteLink:(spaceId:string,email:string)=>Promise<WorkSpaceResponse|null>
 }
 
 export const useSpaceStore = create<SpaceState>((set) => ({
@@ -173,6 +175,22 @@ export const useSpaceStore = create<SpaceState>((set) => ({
            set({sploading:false,error:null})
            return null
       },
+      
+      deleteWorkSpace:async(workSpaceId:string)=>{
+        set({sploading:true,error:null})
+          const space=await handleAsync(async()=>{
+            const response=await axiosInstance.delete(`/workspace/${workSpaceId}`)
+             return response.data
+          })
+          if(space){
+            
+            
+               set({sploading:false,error:null})
+               return space.data
+          }
+           set({sploading:false,error:null})
+           return null
+      },
 
       editColumn:async(spaceId:string,color:colors)=>{
          set({sploading:true,error:null})
@@ -188,6 +206,23 @@ export const useSpaceStore = create<SpaceState>((set) => ({
             }
             return null
       },
+
+       sendInviteLink:async(spaceId:string,email:string)=>{
+         set({sploading:true,error:null})
+        const result=await handleAsync(async()=>{
+             const response=await axiosInstance.post(`/list/sentinvintlink`,{spaceId,email})
+             return response.data
+
+        })
+        if(result){
+set({sploading:false,error:null})
+return result.data
+        }else{
+            return null
+        }
+  
+
+       } 
      
 
 

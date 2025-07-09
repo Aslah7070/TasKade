@@ -56,14 +56,16 @@ await findWorkSpaces()
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <div className="p-4 rounded-lg shadow-md  bg-opacity-40  backdrop-blur-lg hover:bg-gradient-to-br from-purple-100 via-white to-blue-100 hover:scale-105 transition-transform border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:bg-opacity-40 dark:hover:bg-gray-800 dark:hover:from-gray-800 dark:hover:via-gray-700 dark:hover:to-gray-900 hover:shadow-lg cursor-pointer w-[250px] h-full overflow-hidden">
-          <h3 className="mb-2 font-medium">{template.name}</h3>
+      <DialogTrigger  asChild>
+        <div className="p-4 rounded-lg shadow-md  bg-opacity-40 backdrop-blur-lg  hover:scale-105 transition-transform border border-violet-700 dark:border-gray-700 dark:bg-gray-800 dark:bg-opacity-40 dark:hover:bg-gray-800 dark:hover:from-gray-800 dark:hover:via-gray-700 dark:hover:to-gray-900 hover:shadow-lg cursor-pointer w-[250px] h-full overflow-hidden">
+          <div className="h-10 ">
+            <h3 className="mb-2 font-medium">{template.name}</h3>
+          </div>
           <p className="text-xs text-gray-700 dark:text-gray-400 mt-1">
             {template.description}
           </p>
-          <div className="mt-2 mb-1">
-            <h4 className="text-sm text-gray-800 font-medium dark:text-gray-500">
+          <div className="mt-2 mb-2">
+            <h4 className="text-sm text-blue-800 font-medium mb-2 dark:text-blue-800">
               Spaces: {template.spaces.length}
             </h4>
             <ul className="flex flex-wrap gap-1">
@@ -80,7 +82,7 @@ await findWorkSpaces()
         </div>
       </DialogTrigger>
 
-      <DialogContent className="w-full sm:w-[600px] bg-black">
+      <DialogContent className="w-full sm:w-[600px] animate_animated animate__backInUp bg-black">
         <DialogHeader>
           <DialogTitle>{template.name}</DialogTitle>
           <DialogDescription>{template.description}</DialogDescription>
@@ -132,10 +134,10 @@ await findWorkSpaces()
         </div>
 
         <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)}>
+          <Button className="text-red-500" variant="ghost" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button type="submit" form={`template_form_${template.name}`}>
+          <Button className="text-green-500" type="submit" form={`template_form_${template.name}`}>
            {sploading?<Spinner/>:" Create Workspace"}
           </Button>
         </DialogFooter>

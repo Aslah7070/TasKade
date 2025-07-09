@@ -1,7 +1,7 @@
 
 import express from "express"
 
-import { forgotPassword, googleAuth, login, logout, resendOtp, signup, verifyOtpAndLogin } from "../controllers/auth.controller"
+import { forgotPassword, getResetPassword, googleAuth, login, logout, resendOtp, signup, verifyOtpAndLogin } from "../controllers/auth.controller"
 import { userAuth } from "../middlwares/authenticate.middleware";
 import errorCatch from "../middlwares/catchErro.middleware";
 const router=express.Router()
@@ -18,5 +18,6 @@ router
 .post("/otpverification",errorCatch(verifyOtpAndLogin))
 .post("/forgotpassword",errorCatch(forgotPassword))
 .post("/googlelogin",errorCatch(googleAuth))
+.post("/resetpassword",errorCatch(getResetPassword))
 
 export  {router}        

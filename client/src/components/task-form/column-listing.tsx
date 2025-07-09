@@ -87,9 +87,9 @@ const findSpace = async () => {
  console.log("hey",result);
   if (result) {
     
-    setStatus(result.space[0].name); // Use `?? null` in case name is undefined
+    setStatus(result.space[0].name);
   } else {
-    setStatus(null); // Handle null result
+    setStatus(null); 
   }
 };
 

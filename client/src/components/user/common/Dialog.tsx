@@ -107,12 +107,16 @@ const [open, setOpen] = useState(false);
                             />
                         </div>
                     </div>
-                    <DialogFooter>
-
-                        <DialogClose asChild>
+                    <DialogFooter className="flex justify-between ">
+<div className="bg-blue-900 ">
+     <Button className="text-red-900" type="submit">{sploading?<Spinner/>:!id?"Create":"Update"}</Button>
+</div>
+               <div className="bg-red-900">
+                         <DialogClose asChild>
                             <Button className="text-red-900">Cancel</Button>
                         </DialogClose>
                         <Button className="text-green-900" type="submit">{sploading?<Spinner/>:!id?"Create":"Update"}</Button>
+               </div>
                     </DialogFooter>
                 </form>
             </DialogContent>

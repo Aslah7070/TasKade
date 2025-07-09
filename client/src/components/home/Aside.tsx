@@ -62,6 +62,7 @@ const Aside: React.FC<AsidProps> = ({ state }) => {
           <div className={`${isExpanded&&"flex"} flex items-center justify-between  w-full`}>
             {isExpanded && <span className="text-xs dark:text-white cursor-pointer" onClick={()=>setAnimationKey((prev)=>prev+1)}>WORK SPACE</span>}
             <DialogDemo animationKey={animationKey} toggleIcom={<AddIcon /> }id=""  />
+           
 
 
           </div>

@@ -38,7 +38,7 @@ function Homepage() {
        <TemplateCarousel/>
       </div>
       <hr />
-      <div className="h-1/2 w-full  items-center justify-start ">
+      <div className="h-1/2 w-full p-5 items-center justify-start ">
      My Workspace
       <MyWorkSpace/>
       </div>
